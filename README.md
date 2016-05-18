@@ -4,6 +4,8 @@
 
 **NOT A LIBRARY**
 
+If you are looking for a library, check [horizon-react](https://github.com/flipace/horizon-react) which is Redux-style connector.
+
 ## Installation
 - Install [RethinkDB](https://www.rethinkdb.com/) `brew install rethinkdb`
 - Install [Horizon](http://horizon.io/) `npm i -g horizon`
