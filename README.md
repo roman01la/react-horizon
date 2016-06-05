@@ -2,68 +2,56 @@
 
 *Higher-order React component which handles subscriptions and mutations to horizon.io realtime backend*
 
-**NOT A LIBRARY**
+See Horizon's [Collection API](http://horizon.io/api/collection/) for querying methods
 
 ## Installation
-- Install [RethinkDB](https://www.rethinkdb.com/) `brew install rethinkdb`
-- Install [Horizon](http://horizon.io/) `npm i -g horizon`
-- Run server `hz serve --dev`
-- Open [http://127.0.0.1:8181/](http://127.0.0.1:8181/) in your browser
-- See Horizon's [Collection API](http://horizon.io/api/collection/) for querying methods
+```
+$ npm i react-hz
+```
 
 ## Usage
 
 ### Queries
 ```js
 import React, { Component } from 'react';
-import ListItem from './list_item';
-import connectHorizon from '../lib/connect_horizon';
+import { connect } from 'react-hz';
 
-class List extends Component {
+class App extends Component {
   render() {
     return (
-      <ul>{this.props.items.map((item) => <ListItem key={item.id} {...item} />)}</ul>
+      <ul>{this.props.items.map(({ id, title }) => <li key={id}>{title}</li>)}</ul>
     );
   }
 }
 
-const ListContainer = connectHorizon(List, {
+const AppContainer = connect(App, {
   queries: {
     items: (hz) => hz('items')
   }
 });
 
-export default ListContainer;
+export default AppContainer;
 ```
 
 ### Mutations
 ```js
 import React, { Component } from 'react';
-import connectHorizon from '../lib/connect_horizon';
+import { connect } from 'react-hz';
 
-class InputField extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { value: '' }
-  }
+class App extends Component {
   render() {
     return (
-      <div>
-        <input
-          value={this.state.value}
-          onChange={(event) => this.setState({ value: event.target.value })} />
-        <button onClick={() => this.props.items.store({ title: this.state.value })}>Add item</button>
-      </div>
+      <button onClick={() => this.props.items.store({ title: 'Item' })}>add</button>
     );
   }
 }
 
-const InputFieldContainer = connectHorizon(InputField, {
+const AppContainer = connectHorizon(App, {
   mutations: {
     items: (hz) => hz('items')
   }
 });
 
-export default InputFieldContainer;
+export default AppContainer;
 
 ```
