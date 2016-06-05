@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-const hz = Horizon();
+import hz from '@horizon/client';
 
 export function connect(ReactComponent, { queries = {}, mutations = {} }) {
   return class extends Component {
