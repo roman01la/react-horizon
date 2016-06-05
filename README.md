@@ -1,3 +1,6 @@
+[![npm](https://img.shields.io/npm/v/react-hz.svg)](https://www.npmjs.com/package/react-hz)
+[![Build Status](https://travis-ci.org/roman01la/react-hz.svg?branch=master)](https://travis-ci.org/roman01la/react-hz)
+
 # React Horizon
 
 <img src="logo.png" width="110" height="110" alt="logo" />
