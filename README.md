@@ -21,7 +21,7 @@ Read Horizon's [Collection API](http://horizon.io/api/collection/) for querying 
 
 Behind the scenes React Horizon calls `subscribe` function on query object which returns RxJS Observable. Data received by that observable is then passed into React component as props.
 
-All subscriptions are disposed on `componentWillUnmount`.
+All subscriptions are disposed automatically on `componentWillUnmount`.
 
 ```js
 import React, { Component } from 'react';
