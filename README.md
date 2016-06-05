@@ -19,7 +19,7 @@ Read Horizon's [Collection API](http://horizon.io/api/collection/) for querying 
 
 `subscriptions` is a map of subscription names to query functions. Data behind query is available as a prop with the same name in React component. Query function receives Horizon `hz` function which should be used to construct a query using Horizon's Collection API.
 
-Behind the scenes React Horizon calls `subscribe` function on query object which returns RxJS Observable. Data received by that observable is then passed into React component as props.
+Behind the scenes React Horizon calls `watch` and `subscribe` function on query object which returns RxJS Observable and subscribes to incoming data. Data received by that observable is then passed into React component as props.
 
 All subscriptions are disposed automatically on `componentWillUnmount`.
 
@@ -29,15 +29,18 @@ import { connect } from 'react-hz';
 
 class App extends Component {
   render() {
+
+    const itemsSubcription = this.props.items;
+
     return (
-      <ul>{this.props.items.map(({ id, title }) => <li key={id}>{title}</li>)}</ul>
+      <ul>{itemsSubcription.map(({ id, title }) => <li key={id}>{title}</li>)}</ul>
     );
   }
 }
 
 const AppContainer = connect(App, {
   subscriptions: {
-    items: (hz) => hz('items')
+    items: (hz) => hz('items').below({ id: 10 }).order('title', 'ascending')
   }
 });
 
@@ -61,8 +64,14 @@ import { connect } from 'react-hz';
 
 class App extends Component {
   render() {
+
+    const itemsMutation = this.props.items;
+
     return (
-      <button onClick={() => this.props.items.store({ title: 'Item' })}>add</button>
+      <div>
+        <button onClick={() => itemsMutation.store({ title: 'Item' })}>add</button>
+        <button onClick={() => itemsMutation.remove({ id: 24 })}>remove</button>
+      </div>
     );
   }
 }
