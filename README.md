@@ -1,5 +1,7 @@
 # React Horizon
 
+<img src="logo.png" width="110" height="110" alt="logo" />
+
 *Higher-order React component which handles subscriptions and mutations to horizon.io realtime backend*
 
 `react-hz` provides higher-order React component to query and mutate data on Horizon's backend.
