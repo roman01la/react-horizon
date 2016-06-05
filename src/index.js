@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import hz from '@horizon/client';
 
-export function connect(ReactComponent, { queries = {}, mutations = {} }) {
+export function connect(ReactComponent, { subscriptions = {}, mutations = {} }) {
   return class extends Component {
     constructor(props) {
       super(props);
-      this._queries = [];
+      this._subscriptions = [];
       this._mutations = {};
-      this.state = Object.keys(queries)
+      this.state = Object.keys(subscriptions)
         .reduce((initialState, qname) => {
           initialState[qname] = [];
           return initialState;
         }, {})
     }
     componentWillMount() {
-      Object.keys(queries)
+      Object.keys(subscriptions)
         .forEach((qname) => {
-          const q = queries[qname];
+          const q = subscriptions[qname];
           const subscription = q(hz).watch().subscribe((data) => this.setState({ [qname]: data }))
-          this._queries.push(subscription)
+          this._subscriptions.push(subscription)
         })
       Object.keys(mutations)
         .forEach((mname) => {
@@ -26,7 +26,7 @@ export function connect(ReactComponent, { queries = {}, mutations = {} }) {
         })
     }
     componentWillUnmount() {
-      this._queries.forEach((q) => q.dispose())
+      this._subscriptions.forEach((q) => q.dispose())
     }
     render() {
       return <ReactComponent {...this.props} {...this.state} {...this._mutations} />;

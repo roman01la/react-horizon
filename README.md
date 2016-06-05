@@ -13,11 +13,15 @@ $ npm i react-hz
 
 Read Horizon's [Collection API](http://horizon.io/api/collection/) for querying methods.
 
-`react-hz` package provides `connect` function which wraps React component with specified queries and mutations. Connector functions expects two arguments: React component and query/mutation config object.
+`react-hz` package provides `connect` function which wraps React component with specified queries for subscriptions and mutations. Connector functions expects two arguments: React component and subscriptions/mutations config object.
 
-### Queries
+### Subscriptions
 
-`queries` is a map of query names to query functions. Data behind query is available as a prop with the same name in React component. Query function receives Horizon `hz` function which should be used to construct a query using Horizon's Collection API.
+`subscriptions` is a map of subscription names to query functions. Data behind query is available as a prop with the same name in React component. Query function receives Horizon `hz` function which should be used to construct a query using Horizon's Collection API.
+
+Behind the scenes React Horizon calls `subscribe` function on query object which returns RxJS Observable. Data received by that observable is then passed into React component as props.
+
+All subscriptions are disposed on `componentWillUnmount`.
 
 ```js
 import React, { Component } from 'react';
@@ -32,7 +36,7 @@ class App extends Component {
 }
 
 const AppContainer = connect(App, {
-  queries: {
+  subscriptions: {
     items: (hz) => hz('items')
   }
 });
