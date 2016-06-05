@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "description": "Higher-order React component which handles subscriptions and mutations to horizon.io realtime backend",
   "main": "src/index.js",
-  "author": "Roman Liutikov",
+  "keywords": [
+    "horizon",
+    "react"
+  ],
+  "author": "Roman Liutikov <roman01la@romanliutikov.com>",
   "license": "MIT",
   "dependencies": {
+    "@horizon/client": "^1.1.1",
     "react": "^15.0.2"
   }
 }

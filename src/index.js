@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import hz from '@horizon/client';
+import Horizon from '@horizon/client/dist/horizon';
 
-export function connect(ReactComponent, { subscriptions = {}, mutations = {} }) {
+const hzclient = Horizon();
+
+export function connect(ReactComponent, { subscriptions = {}, mutations = {} }, hz = hzclient) {
   return class extends Component {
     constructor(props) {
       super(props);

@@ -9,6 +9,11 @@
 $ npm i react-hz
 ```
 
+## Running example
+- Make sure you have installed RethinkDB and Horizon's CLI
+- Start server from `example` directory: `$ hz serve --dev`
+- Open http://127.0.0.1:8181 in your browser
+
 ## Usage
 
 Read Horizon's [Collection API](http://horizon.io/api/collection/) for querying methods.
@@ -58,6 +63,10 @@ Available mutation operations:
 - `store` - http://horizon.io/api/collection/#store
 - `upsert` - http://horizon.io/api/collection/#upsert
 
+It's possible to create two types of mutations (see example below):
+- generic mutation which provides mutation object and thus gives you an ability to call different mutation operations in component
+- specific mutation which is a function that receives parameters required for mutation, instantiates mutations object and applies mutation immediately
+
 ```js
 import React, { Component } from 'react';
 import { connect } from 'react-hz';
@@ -66,11 +75,12 @@ class App extends Component {
   render() {
 
     const itemsMutation = this.props.items;
+    const removeItem = this.props.removeItem;
 
     return (
       <div>
         <button onClick={() => itemsMutation.store({ title: 'Item' })}>add</button>
-        <button onClick={() => itemsMutation.remove({ id: 24 })}>remove</button>
+        <button onClick={() => removeItem(24)}>remove</button>
       </div>
     );
   }
@@ -78,7 +88,8 @@ class App extends Component {
 
 const AppContainer = connectHorizon(App, {
   mutations: {
-    items: (hz) => hz('items')
+    items: (hz) => hz('items'),
+    removeItem: (hz) => (id) => hz('items').remove(id)
   }
 });
 
