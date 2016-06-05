@@ -2,6 +2,8 @@
 
 *Higher-order React component which handles subscriptions and mutations to horizon.io realtime backend*
 
+`react-hz` provides higher-order React component to query and mutate data on Horizon's backend.
+
 See Horizon's [Collection API](http://horizon.io/api/collection/) for querying methods
 
 ## Installation
