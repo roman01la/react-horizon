@@ -4,8 +4,6 @@
 
 See Horizon's [Collection API](http://horizon.io/api/collection/) for querying methods
 
-If you are looking for a library, check [horizon-react](https://github.com/flipace/horizon-react) which is Redux-style connector.
-
 ## Installation
 ```
 $ npm i react-hz
