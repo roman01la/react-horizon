@@ -96,3 +96,5 @@ const AppContainer = connectHorizon(App, {
 export default AppContainer;
 
 ```
+
+MIT
