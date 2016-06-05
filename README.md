@@ -9,6 +9,10 @@
 $ npm i react-hz
 ```
 
+React Horizon allows reactive dataflow between backend and React.js application. Client demand is declared in React components using Horizon's query API and data is synchronized thanks to [horizon.io](http://horizon.io/) realtime backend.
+
+![Dataflow schema](schema.png)
+
 ## Running example
 - Make sure you have installed RethinkDB and Horizon's CLI
 - Start server from `example` directory: `$ hz serve --dev`
