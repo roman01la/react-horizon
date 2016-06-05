@@ -104,4 +104,7 @@ export default AppContainer;
 
 ```
 
+## Why not GraphQL as a query language?
+GraphQL would be a much better declarative replacement instead of current Collection API. Horizon team is working on GraphQL adapter, follow [this thread](https://github.com/rethinkdb/horizon/issues/125) for updates.
+
 MIT
