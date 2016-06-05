@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Higher-order React component which handles subscriptions and mutations to horizon.io realtime backend",
   "main": "src/index.js",
+  "scripts": {
+    "test": "mocha test/.setup.js test/**/*.spec.js"
+  },
   "keywords": [
     "horizon",
     "react"
@@ -12,5 +15,16 @@
   "dependencies": {
     "@horizon/client": "^1.1.1",
     "react": "^15.0.2"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-preset-airbnb": "^2.0.0",
+    "babel-register": "^6.9.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.3.0",
+    "jsdom": "^9.2.1",
+    "mocha": "^2.5.3",
+    "react-addons-test-utils": "^15.1.0",
+    "react-dom": "^15.1.0"
   }
 }
