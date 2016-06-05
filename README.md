@@ -1,5 +1,5 @@
-[![npm](https://img.shields.io/npm/v/react-hz.svg)](https://www.npmjs.com/package/react-hz)
-[![Build Status](https://travis-ci.org/roman01la/react-horizon.svg?branch=master)](https://travis-ci.org/roman01la/react-horizon)
+[![npm](https://img.shields.io/npm/v/react-hz.svg?style=flat-square)](https://www.npmjs.com/package/react-hz)
+[![Build Status](https://img.shields.io/travis/roman01la/react-horizon/master.svg?style=flat-square)](https://travis-ci.org/roman01la/react-horizon)
 
 # React Horizon
 
