@@ -1,7 +1,7 @@
 {
   "name": "react-hz",
   "version": "0.3.0",
-  "description": "Higher-order React component which handles subscriptions and mutations to horizon.io realtime backend",
+  "description": "React Horizon makes it easier to use your React application with horizon.io realtime backend",
   "main": "src/index.js",
   "scripts": {
     "start-example": "NODE_ENV=development watchify ./example/src/index.js -o ./example/dist/js/bundle.js -g envify -t [ babelify --presets [ airbnb stage-1 ] ] -dv",

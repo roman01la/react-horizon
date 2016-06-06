@@ -5,7 +5,7 @@
 
 <img src="logo.png" width="110" height="110" alt="logo" />
 
-*Higher-order React component which handles subscriptions and mutations to horizon.io realtime backend*
+*React Horizon makes it easier to use your React application with horizon.io realtime backend*
 
 ## Installation
 ```
@@ -27,17 +27,18 @@ Read Horizon's [Collection API](http://horizon.io/api/collection/) for querying 
 
 `react-hz` package provides `HorizonProvider` instance provider component, `HorizonRoute` application route component, connector function and `Horizon` client library.
 
-### `connect(component, config)`
-`connect` function wraps React components with specified queries for subscriptions and mutations. Connector function expects two arguments: React component and subscriptions/mutations config object. Props passed into container component are automatically passed into wrapped component.
+### `<HorizonProvider />`
+`HorizonProvider` is a top level component in your application which establishes connection to Horizon server. The component accepts an instance of `Horizon` constructor as `instance` prop.
 ```js
-const AppContainer = connect(App, {
-  subscriptions: {
-    // ...
-  },
-  mutations: {
-    // ...
-  }
-});
+<HorizonProvider instance={horizonInstance}>
+  <App />
+</HorizonProvider>
+```
+
+### `Horizon([config])`
+`Horizon` is a constructor function from Horizon's client library included into `react-hz`. Constructor function accepts optional config object http://horizon.io/api/horizon/#constructor.
+```js
+const horizonInstance = Horizon({ host: 'localhost:8181' });
 ```
 
 ### `<HorizonRoute />`
@@ -52,18 +53,17 @@ Normally you should render your app in `renderSuccess` callback. `renderFailure`
   renderFailure={(error) => <h1>Something went wrong...</h1>} />
 ```
 
-### `<HorizonProvider />`
-`HorizonProvider` is a top level component in your application which establishes connection to Horizon server. The component accepts an instance of `Horizon` constructor as `instance` prop.
+### `connect(component, config)`
+`connect` function wraps React components with specified queries for subscriptions and mutations. Connector function expects two arguments: React component and subscriptions/mutations config object. Props passed into container component are automatically passed into wrapped component.
 ```js
-<HorizonProvider instance={horizonInstance}>
-  <App />
-</HorizonProvider>
-```
-
-### `Horizon([config])`
-`Horizon` is a constructor function from Horizon's client library included into `react-hz`. Constructor function accepts optional config object http://horizon.io/api/horizon/#constructor.
-```js
-const horizonInstance = Horizon({ host: 'localhost:8181' });
+const AppContainer = connect(App, {
+  subscriptions: {
+    // ...
+  },
+  mutations: {
+    // ...
+  }
+});
 ```
 
 ### Subscriptions
