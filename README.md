@@ -27,6 +27,7 @@ Read Horizon's [Collection API](http://horizon.io/api/collection/) for querying 
 
 `react-hz` package provides `HorizonProvider` instance provider component, `HorizonRoute` application route component, connector function and `Horizon` client library.
 
+### `connect(component, config)`
 `connect` function wraps React components with specified queries for subscriptions and mutations. Connector function expects two arguments: React component and subscriptions/mutations config object. Props passed into container component are automatically passed into wrapped component.
 ```js
 const AppContainer = connect(App, {
@@ -39,6 +40,7 @@ const AppContainer = connect(App, {
 });
 ```
 
+### `<HorizonRoute />`
 `HorizonRoute` is a top level component for every screen in your application which provides an API to respond to connectivity status changes.
 Normally you should render your app in `renderSuccess` callback. `renderFailure` callback receives error object which can be used to render an error message.
 ```js
@@ -50,6 +52,7 @@ Normally you should render your app in `renderSuccess` callback. `renderFailure`
   renderFailure={(error) => <h1>Something went wrong...</h1>} />
 ```
 
+### `<HorizonProvider />`
 `HorizonProvider` is a top level component in your application which establishes connection to Horizon server. The component accepts an instance of `Horizon` constructor as `instance` prop.
 ```js
 <HorizonProvider instance={horizonInstance}>
@@ -57,6 +60,7 @@ Normally you should render your app in `renderSuccess` callback. `renderFailure`
 </HorizonProvider>
 ```
 
+### `Horizon([config])`
 `Horizon` is a constructor function from Horizon's client library included into `react-hz`. Constructor function accepts optional config object http://horizon.io/api/horizon/#constructor.
 ```js
 const horizonInstance = Horizon({ host: 'localhost:8181' });
