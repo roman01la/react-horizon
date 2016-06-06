@@ -1,12 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { expect } from 'chai';
-import { connect } from '../src/index';
+import { connect, HorizonProvider, HorizonRoute } from '../src/index';
 
-function hz(q) {
-  return {
-    watch: () => ({ subscribe: (handler) => handler(['subscription']) })
-  }
+function Horizon() {
+  const hz = Horizon;
+  hz.watch = () => ({ subscribe: (handler) => handler(['subscription']) });
+  hz.connect = () => undefined;
+  return hz;
 }
 
 const TestComp = () => <div />;
@@ -20,9 +21,13 @@ describe('connect', () => {
         items: (hz) => hz('items'),
         users: (hz) => hz('users'),
       }
-    }, hz);
+    });
 
-    const wrapper = mount(<TestCompContainer />);
+    const wrapper = mount((
+      <HorizonProvider instance={Horizon()}>
+        <TestCompContainer />
+      </HorizonProvider>
+    ));
 
     expect(wrapper.nodes[0]._subscriptions).to.have.length(2);
   });
@@ -34,9 +39,13 @@ describe('connect', () => {
         removeItem: (hz) => (id) => hz('items').remove(id),
         addUser: (hz) => (name) => hz('users').store({ name }),
       }
-    }, hz);
+    });
 
-    const wrapper = mount(<TestCompContainer />);
+    const wrapper = mount((
+      <HorizonProvider instance={Horizon()}>
+        <TestCompContainer />
+      </HorizonProvider>
+    ));
 
     expect(wrapper.nodes[0]._mutations).to.include.keys(['removeItem', 'addUser']);
   });

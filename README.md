@@ -25,19 +25,55 @@ React Horizon allows reactive dataflow between backend and React.js application.
 
 Read Horizon's [Collection API](http://horizon.io/api/collection/) for querying methods.
 
-`react-hz` package provides `connect` function which wraps React component with specified queries for subscriptions and mutations. Connector functions expects two arguments: React component and subscriptions/mutations config object.
+`react-hz` package provides `HorizonProvider` instance provider component, `HorizonRoute` application route component, connector function and `Horizon` client library.
+
+`connect` function wraps React components with specified queries for subscriptions and mutations. Connector function expects two arguments: React component and subscriptions/mutations config object. Props passed into container component are automatically passed into wrapped component.
+```js
+const AppContainer = connect(App, {
+  subscriptions: {
+    // ...
+  },
+  mutations: {
+    // ...
+  }
+});
+```
+
+`HorizonRoute` is a top level component for every screen in your application which provides an API to respond to connectivity status changes.
+Normally you should render your app in `renderSuccess` callback. `renderFailure` callback receives error object which can be used to render an error message.
+```js
+<HorizonRoute
+  renderConnecting={() => <h1>Connecting...</h1>}
+  renderDisconnected={() => <h1>You are offline</h1>}
+  renderConnected={() => <h1>You are online</h1>}
+  renderSuccess={() => <h1>Hello!</h1>}
+  renderFailure={(error) => <h1>Something went wrong...</h1>} />
+```
+
+`HorizonProvider` is a top level component in your application which establishes connection to Horizon server. The component accepts an instance of `Horizon` constructor as `instance` prop.
+```js
+<HorizonProvider instance={horizonInstance}>
+  <App />
+</HorizonProvider>
+```
+
+`Horizon` is a constructor function from Horizon's client library included into `react-hz`. Constructor function accepts optional config object http://horizon.io/api/horizon/#constructor.
+```js
+const horizonInstance = Horizon({ host: 'localhost:8181' });
+```
 
 ### Subscriptions
 
-`subscriptions` is a map of subscription names to query functions. Data behind query is available as a prop with the same name in React component. Query function receives Horizon `hz` function which should be used to construct a query using Horizon's Collection API.
+`subscriptions` is a map of subscription names to query functions. Data behind query is available as a prop with the same name in React component. Query function receives Horizon `hz` function which should be used to construct a query using Horizon's Collection API and props object which is being passed into container component.
 
 Behind the scenes React Horizon calls `watch` and `subscribe` function on query object which returns RxJS Observable and subscribes to incoming data. Data received by that observable is then passed into React component as props.
 
-All subscriptions are disposed automatically on `componentWillUnmount`.
+All subscriptions are unsubscribed automatically on `componentWillUnmount`.
 
 ```js
 import React, { Component } from 'react';
-import { connect } from 'react-hz';
+import { render } from 'react-dom';
+import { Horizon, HorizonProvider, connect } from 'react-hz';
 
 class App extends Component {
   render() {
@@ -52,11 +88,18 @@ class App extends Component {
 
 const AppContainer = connect(App, {
   subscriptions: {
-    items: (hz) => hz('items').below({ id: 10 }).order('title', 'ascending')
+    items: (hz, { username }) => hz('items')
+      .find({ username })
+      .below({ id: 10 })
+      .order('title', 'ascending')
   }
 });
 
-export default AppContainer;
+render((
+  <HorizonProvider instance={Horizon()}>
+    <AppContainer username='John' />
+  </HorizonProvider>
+), document.getElementById('app'));
 ```
 
 ### Mutations
@@ -76,7 +119,8 @@ It's possible to create two types of mutations (see example below):
 
 ```js
 import React, { Component } from 'react';
-import { connect } from 'react-hz';
+import { render } from 'react-dom';
+import { Horizon, HorizonProvider, connect } from 'react-hz';
 
 class App extends Component {
   render() {
@@ -100,8 +144,11 @@ const AppContainer = connectHorizon(App, {
   }
 });
 
-export default AppContainer;
-
+render((
+  <HorizonProvider instance={Horizon()}>
+    <AppContainer />
+  </HorizonProvider>
+), document.getElementById('app'));
 ```
 
 ## Why not GraphQL as a query language?

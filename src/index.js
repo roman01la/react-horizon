@@ -1,37 +1,4 @@
-import React, { Component } from 'react';
-import Horizon from '@horizon/client/dist/horizon';
-
-const hzclient = Horizon();
-
-export function connect(ReactComponent, { subscriptions = {}, mutations = {} }, hz = hzclient) {
-  return class extends Component {
-    constructor(props) {
-      super(props);
-      this._subscriptions = [];
-      this._mutations = {};
-      this.state = Object.keys(subscriptions)
-        .reduce((initialState, qname) => {
-          initialState[qname] = [];
-          return initialState;
-        }, {})
-    }
-    componentWillMount() {
-      Object.keys(subscriptions)
-        .forEach((qname) => {
-          const q = subscriptions[qname];
-          const subscription = q(hz).watch().subscribe((data) => this.setState({ [qname]: data }))
-          this._subscriptions.push(subscription)
-        })
-      Object.keys(mutations)
-        .forEach((mname) => {
-          this._mutations[mname] = mutations[mname](hz)
-        })
-    }
-    componentWillUnmount() {
-      this._subscriptions.forEach((q) => q.dispose())
-    }
-    render() {
-      return <ReactComponent {...this.props} {...this.state} {...this._mutations} />;
-    }
-  }
-}
+export { default as Horizon } from '@horizon/client/dist/horizon';
+export { default as connect } from './connect';
+export { default as HorizonProvider } from './provider';
+export { default as HorizonRoute } from './route';

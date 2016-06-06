@@ -3,10 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <title>React Horizon</title>
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <style>
+    #apps {
+      display: flex;
+    }
+
+    .app {
+      margin: 0 50px;
+    }
+
+    .app ul {
+      list-style-type: none;
+    }
+
+    .message {
+      height: 50px;
+      background: #eee;
+      position: relative;
+    }
+
+    .message img {
+      vertical-align:middle;
+    }
+
+    .message .text {
+      vertical-align:middle;
+      margin-left:5px;
+      font-family: 'Source Code Pro', "Raleway", "Helvetica Neue";
+      font-size:20px;
+    }
+
+    .message .datetime {
+      color: darkgrey;
+      font-size: 12px;
+      font-weight: 100;
+      position: absolute;
+      right: 8px;
+      top: 4px;
+    }
+
+    #input {
+      margin-bottom:10%;
+    }
+
+    #input input {
+      height:100px;
+      font-size:5rem;
+      padding:10px;
+      font-family: 'Source Code Pro', "Raleway", "Helvetica Neue";
+    }
+  </style>
 </head>
 <body>
 
-  <div id="app"></div>
+  <div id="apps">
+    <div id="app1" class="app container"></div>
+    <div id="app2" class="app container"></div>
+  </div>
 
   <script src="/js/bundle.js"></script>
 

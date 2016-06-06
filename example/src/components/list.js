@@ -1,20 +1,12 @@
-import React, { Component } from 'react';
-import ListItem from './list_item';
-import { connect } from '../../../src/index';
+import React from 'react';
+import ChatMessage from './message';
 
-const List = ({ items, removeItem }) => (
-  <ul>{items.map((item) => {
-    return <ListItem key={item.id} onRemove={removeItem} {...item} />;
-  })}</ul>
+const ChatList = ({ messages }) => (
+  <div className='row'>
+    <ul>
+      {messages.map((message) => <ChatMessage key={message.id} {...message} />)}
+    </ul>
+  </div>
 );
 
-const ListContainer = connect(List, {
-  subscriptions: {
-    items: (hz) => hz('items')
-  },
-  mutations: {
-    removeItem: (hz) => (id) => hz('items').remove(id)
-  }
-});
-
-export default ListContainer;
+export default ChatList;

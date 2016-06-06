@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import ListContainer from './components/list';
-import InputFieldContainer from './components/input_field';
+import { Horizon, HorizonProvider, HorizonRoute } from '../../src/index';
+import ChatApp from './components/chat';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <ListContainer />
-        <InputFieldContainer />
-      </div>
-    );
-  }
-}
+const horizonInstance = Horizon({ host: 'localhost:8181' });
 
-render(<App />, document.getElementById('app'));
+const App = () => (
+  <HorizonProvider instance={horizonInstance}>
+    <HorizonRoute renderSuccess={() => <ChatApp />} />
+  </HorizonProvider>
+);
+
+render(<App />, document.getElementById('app1'));
+render(<App />, document.getElementById('app2'));
