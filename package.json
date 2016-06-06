@@ -28,6 +28,7 @@
     "jsdom": "^9.2.1",
     "mocha": "^2.5.3",
     "react-addons-test-utils": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "sinon": "^1.17.4"
   }
 }
