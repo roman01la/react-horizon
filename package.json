@@ -1,6 +1,6 @@
 {
   "name": "react-hz",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "React Horizon makes it easier to use your React application with horizon.io realtime backend",
   "main": "src/index.js",
   "scripts": {
@@ -16,13 +16,12 @@
   "license": "MIT",
   "dependencies": {
     "@horizon/client": "^1.1.1",
+    "babel-preset-airbnb": "^2.0.0",
+    "babel-preset-stage-1": "^6.5.0",
     "react": "^15.0.2",
     "shallowequal": "^0.2.2"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-preset-airbnb": "^2.0.0",
-    "babel-preset-stage-1": "^6.5.0",
     "babel-register": "^6.9.0",
     "chai": "^3.5.0",
     "enzyme": "^2.3.0",
