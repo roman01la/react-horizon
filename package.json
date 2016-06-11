@@ -2,10 +2,11 @@
   "name": "react-hz",
   "version": "0.3.1",
   "description": "React Horizon makes it easier to use your React application with horizon.io realtime backend",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
     "start-example": "NODE_ENV=development watchify ./example/src/index.js -o ./example/dist/js/bundle.js -g envify -t [ babelify --presets [ airbnb stage-1 ] ] -dv",
     "build-example": "NODE_ENV=production browserify ./example/src/index.js -o ./example/dist/js/bundle.js -g envify -t [ babelify --presets [ airbnb stage-1 ] ] -dv",
+    "build": "babel src --out-dir build",
     "test": "mocha test/.setup.js test/**/*.spec.js"
   },
   "keywords": [
@@ -22,6 +23,7 @@
     "shallowequal": "^0.2.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.10.1",
     "babel-register": "^6.9.0",
     "chai": "^3.5.0",
     "enzyme": "^2.3.0",
