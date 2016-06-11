@@ -1,6 +1,6 @@
 {
   "name": "react-hz",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "React Horizon makes it easier to use your React application with horizon.io realtime backend",
   "main": "build/index.js",
   "scripts": {
