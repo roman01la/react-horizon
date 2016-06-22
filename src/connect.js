@@ -3,6 +3,7 @@ import shallowequal from 'shallowequal';
 
 export default function connect(ReactComponent, { subscriptions = {}, mutations = {} }) {
   return class extends Component {
+    static displayName = `Horizon(${ReactComponent.displayName || ReactComponent.name})`
     static contextTypes = {
       hz: PropTypes.func
     }
