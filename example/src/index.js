@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Horizon, HorizonProvider, HorizonRoute } from '../../src/index';
-import ChatApp from './components/chat';
+import { HorizonProvider, HorizonRoute } from '../../src/index';
+import ChatAppContainer from './containers/chat';
 
+const Horizon = window.Horizon;
 const horizonInstance = Horizon({ host: 'localhost:8181' });
 
 const App = () => (
   <HorizonProvider instance={horizonInstance}>
-    <HorizonRoute renderSuccess={() => <ChatApp />} />
+    <HorizonRoute renderSuccess={() => <ChatAppContainer />} />
   </HorizonProvider>
 );
 

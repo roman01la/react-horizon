@@ -1,11 +1,16 @@
-import React, { Component } from 'react';
-import { connect } from '../../../src/index';
+import React, { Component, PropTypes } from 'react';
 import ChatList from './list';
 import ChatInput from './input';
 
 class ChatApp extends Component {
+  static propTypes = {
+    authorId: PropTypes.number.isRequired,
+    messages: PropTypes.array.isRequired,
+    sendMessage: PropTypes.func.isRequired
+  }
   static defaultProps = {
-    authorId: Date.now()
+    authorId: Date.now(),
+    messages: []
   }
   render() {
 
@@ -20,15 +25,4 @@ class ChatApp extends Component {
   }
 }
 
-const ChatAppContainer = connect(ChatApp, {
-  subscriptions: {
-    messages: (hz) => hz('messages')
-      .order('t', 'descending')
-      .limit(8)
-  },
-  mutations: {
-    sendMessage: (hz) => (message) => hz('messages').store(message)
-  }
-});
-
-export default ChatAppContainer;
+export default ChatApp;
