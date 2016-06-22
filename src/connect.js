@@ -14,11 +14,7 @@ export default function connect(ReactComponent, { subscriptions = {}, mutations 
       this._subscriptions = [];
       this._mutations = {};
 
-      this.state = Object.keys(subscriptions)
-        .reduce((initialState, qname) => {
-          initialState[qname] = [];
-          return initialState;
-        }, {});
+      this.state = {};
 
       this._subscribe = this._subscribe.bind(this);
       this._unsubscribe = this._unsubscribe.bind(this);
