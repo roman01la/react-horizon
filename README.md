@@ -155,7 +155,11 @@ render((
 ), document.getElementById('app'));
 ```
 
-## Why not GraphQL as a query language?
-GraphQL would be a much better declarative replacement instead of current Collection API. Horizon team is working on GraphQL adapter, follow [this thread](https://github.com/rethinkdb/horizon/issues/125) for updates.
+## Limitations
+
+- **GraphQL**. GraphQL would be a much better declarative replacement instead of current Collection API. Horizon team is working on GraphQL adapter, follow [this thread](https://github.com/rethinkdb/horizon/issues/125) for updates.
+- **Optimistic updates**. Optimistic updates feature is [being discussed](https://github.com/rethinkdb/horizon/issues/23) and it seems like it's not obvious at the moment if this should be baked into client library.
+- **Offline**. [Offline support is not implemented yet](https://github.com/rethinkdb/horizon/issues/58).
+- **Managing reconnection**. [Automatic reconnection is not implemented yet](https://github.com/rethinkdb/horizon/issues/9).
 
 MIT
