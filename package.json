@@ -24,12 +24,17 @@
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-register": "^6.9.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
     "chai": "^3.5.0",
+    "envify": "^3.4.1",
     "enzyme": "^2.3.0",
     "jsdom": "^9.2.1",
     "mocha": "^2.5.3",
+    "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-dom": "^15.1.0",
-    "sinon": "^1.17.4"
+    "sinon": "^1.17.4",
+    "watchify": "^3.7.0"
   }
 }
