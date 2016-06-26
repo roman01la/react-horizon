@@ -13,8 +13,16 @@
     "horizon",
     "react"
   ],
-  "author": "Roman Liutikov <roman01la@romanliutikov.com>",
+  "author": "Roman Liutikov <roman01la@romanliutikov.com> (https://github.com/roman01la)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roman01la/react-horizon.git"
+  },
+  "bugs" : {
+    "url": "https://github.com/roman01la/react-horizon/issues"
+  },
+  "homepage": "https://github.com/roman01la/react-horizon",
   "dependencies": {
     "@horizon/client": "^1.1.1",
     "babel-preset-airbnb": "^2.0.0",
