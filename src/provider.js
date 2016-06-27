@@ -1,4 +1,22 @@
 import React, { Component, PropTypes } from 'react';
+import shallowequal from 'shallowequal';
+import uuid from 'uuid';
+import performUpdate from './optimistic';
+
+const mutOps = [
+  'remove',
+  'removeAll',
+  'replace',
+  'store',
+  'upsert',
+];
+
+function tempid(input) {
+  return {
+    ...input,
+    id: uuid.v4()
+  };
+}
 
 class HorizonProvider extends Component {
   static propTypes = {
@@ -8,12 +26,14 @@ class HorizonProvider extends Component {
     hz: PropTypes.func,
     subscribe: PropTypes.func,
     unsubscribe: PropTypes.func,
+    configureOptimisticUpdate: PropTypes.func,
   }
   getChildContext() {
     return {
       hz: this.props.instance,
       subscribe: this._handleSubscription,
       unsubscribe: this._handleUnsubscription,
+      configureOptimisticUpdate: this._configureOptimisticUpdate,
     };
   }
   constructor(props, context) {
@@ -32,6 +52,8 @@ class HorizonProvider extends Component {
     this._handleSubscription = this._handleSubscription.bind(this);
     this._updateListeners = this._updateListeners.bind(this);
     this._handleUnsubscription = this._handleUnsubscription.bind(this);
+    this._configureOptimisticUpdate = this._configureOptimisticUpdate.bind(this);
+    this._performOptimisticUpdate = this._performOptimisticUpdate.bind(this);
   }
   _handleSubscription(qhash, query, fn) {
 
@@ -45,7 +67,7 @@ class HorizonProvider extends Component {
       const sub = query.watch().subscribe((data) => {
         const hash = qhash;
         // update listeners when remote data updates
-        this.setState({ [hash]: data }, () => this._updateListeners(hash))
+        this.setState({ [hash]: data }, () => this._updateListeners(hash));
       });
 
       this._subscriptions[qhash] = sub;
@@ -67,6 +89,22 @@ class HorizonProvider extends Component {
         this._subscriptions[hash].unsubscribe();
         this._subscriptions[hash] = undefined;
       }
+    });
+  }
+  _configureOptimisticUpdate(collection, hashes) {
+    return mutOps.reduce((p, op) => {
+      p[op] = (input) => {
+        this._performOptimisticUpdate(hashes, op, tempid(input));
+        return this.props.instance(collection)[op](input);
+      };
+      return p;
+    }, {});
+  }
+  _performOptimisticUpdate(hashes, op, input) {
+
+    hashes.forEach((hash) => {
+      const nextData = performUpdate(this.state[hash], op, input);
+      this.setState({ [hash]: nextData }, () => this._updateListeners(hash));
     });
   }
   render() {

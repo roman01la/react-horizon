@@ -12,6 +12,7 @@ export default function connect(ReactComponent, { subscriptions = {}, mutations 
       hz: PropTypes.func,
       subscribe: PropTypes.func,
       unsubscribe: PropTypes.func,
+      configureOptimisticUpdate: PropTypes.func,
     }
 
     constructor(props, context) {
@@ -20,6 +21,7 @@ export default function connect(ReactComponent, { subscriptions = {}, mutations 
 
       this._subscriptions = [];
       this._mutations = {};
+      this._collections = {};
 
       this.state = {};
 
@@ -27,6 +29,7 @@ export default function connect(ReactComponent, { subscriptions = {}, mutations 
       this._unsubscribe = this._unsubscribe.bind(this);
       this._createMutations = this._createMutations.bind(this);
       this._handleUpdate = this._handleUpdate.bind(this);
+      this._optimisticUpdate = this._optimisticUpdate.bind(this);
     }
     shouldComponentUpdate(nextProps, nextState) {
       return shallowequal(nextProps, this.props) === false ||
@@ -54,16 +57,25 @@ export default function connect(ReactComponent, { subscriptions = {}, mutations 
           // local mapping from query hash to query name
           this._subscriptions[qhash] = qname;
 
+          // local mapping from query collection name to queries hash
+          this._collections[qsub._query.collection] = this._collections[qsub._query.collection] || [];
+          this._collections[qsub._query.collection].push(qhash);
+
           this.context.subscribe(qhash, qsub, this._handleUpdate);
         });
     }
     _unsubscribe() {
+
       this.context.unsubscribe(this._handleUpdate, Object.keys(this._subscriptions));
+
+      this._subscriptions = {};
+      this._mutations = {};
+      this._collections = {};
     }
     _createMutations(hz) {
       Object.keys(mutations)
         .forEach((mname) => {
-          this._mutations[mname] = mutations[mname](hz);
+          this._mutations[mname] = mutations[mname](hz, this._optimisticUpdate);
         });
     }
     _handleUpdate(hash, data) {
@@ -71,6 +83,9 @@ export default function connect(ReactComponent, { subscriptions = {}, mutations 
       this.setState({
         [this._subscriptions[hash]]: data
       });
+    }
+    _optimisticUpdate(collection) {
+      return this.context.configureOptimisticUpdate(collection, this._collections[collection]);
     }
     render() {
       return <ReactComponent {...this.props} {...this.state} {...this._mutations} />;

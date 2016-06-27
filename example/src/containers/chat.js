@@ -8,7 +8,7 @@ const ChatAppContainer = connect(ChatApp, {
       .limit(8)
   },
   mutations: {
-    sendMessage: (hz) => (message) => hz('messages').store(message)
+    sendMessage: (hz, optimistic) => (message) => optimistic('messages').store(message)
   }
 });
 
