@@ -8,7 +8,7 @@ const horizonInstance = Horizon({ host: 'localhost:8181' });
 
 const App = () => (
   <HorizonProvider instance={horizonInstance}>
-    <HorizonRoute renderSuccess={() => <ChatAppContainer />} />
+    <ChatAppContainer />
   </HorizonProvider>
 );
 
