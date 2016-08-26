@@ -24,11 +24,13 @@
   },
   "homepage": "https://github.com/roman01la/react-horizon",
   "dependencies": {
-    "@horizon/client": "^1.1.1",
     "babel-preset-airbnb": "^2.0.0",
     "babel-preset-stage-1": "^6.5.0",
     "react": "^15.0.2",
     "shallowequal": "^0.2.2"
+  },
+  "peerDependencies": {
+    "@horizon/client": ">= 1.1.1 < 3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
