@@ -1,13 +1,12 @@
 {
-  "name": "react-hz",
-  "version": "0.3.2",
+  "name": "@hoducha/react-hz",
+  "version": "0.3.3",
   "description": "React Horizon makes it easier to use your React application with horizon.io realtime backend",
   "main": "build/index.js",
   "scripts": {
     "start-example": "NODE_ENV=development watchify ./example/src/index.js -o ./example/dist/js/bundle.js -g envify -t [ babelify --presets [ airbnb stage-1 ] ] -dv",
     "build-example": "NODE_ENV=production browserify ./example/src/index.js -o ./example/dist/js/bundle.js -g envify -t [ babelify --presets [ airbnb stage-1 ] ] -dv",
     "build": "babel src --out-dir build",
-    "postinstall": "babel src --out-dir build",
     "test": "mocha test/.setup.js test/**/*.spec.js"
   },
   "keywords": [
@@ -25,13 +24,11 @@
   },
   "homepage": "https://github.com/roman01la/react-horizon",
   "dependencies": {
+    "@horizon/client": "^2.0.0",
+    "react": "^15.3.2",
     "babel-preset-airbnb": "^2.0.0",
     "babel-preset-stage-1": "^6.5.0",
     "shallowequal": "^0.2.2"
-  },
-  "peerDependencies": {
-    "@horizon/client": ">=1.1.1",
-    "react": ">=15.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
