@@ -66,6 +66,27 @@ const AppContainer = connect(App, {
 });
 ```
 
+### `withQueries(config)`
+`withQueries` is like `connect`, but designed to be used as a decorator. If you have enabled the decorator syntax in your project, instead of using `connect` like above, you can do the following:
+```js
+
+import {withQueries} from 'react-hz'
+
+@withQueries({
+  subscriptions: {
+    // ...
+  },
+  mutations: {
+    // ...
+  }
+})
+class MyComponent extends Component {
+  // ...
+}
+```
+
+
+
 ### Subscriptions
 
 `subscriptions` is a map of subscription names to query functions. Data behind query is available as a prop with the same name in React component. Query function receives Horizon `hz` function which should be used to construct a query using Horizon's Collection API and props object which is being passed into container component.
