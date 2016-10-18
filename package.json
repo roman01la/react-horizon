@@ -7,7 +7,7 @@
     "start-example": "NODE_ENV=development watchify ./example/src/index.js -o ./example/dist/js/bundle.js -g envify -t [ babelify --presets [ airbnb stage-1 ] ] -dv",
     "build-example": "NODE_ENV=production browserify ./example/src/index.js -o ./example/dist/js/bundle.js -g envify -t [ babelify --presets [ airbnb stage-1 ] ] -dv",
     "build": "babel src --out-dir build",
-    "postinstall": "babel src --out-dir build",
+    "prepublish": "babel src --out-dir build",
     "test": "mocha test/.setup.js test/**/*.spec.js"
   },
   "keywords": [
