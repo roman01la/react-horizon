@@ -2,6 +2,10 @@ sudo: false
 language: node_js
 node_js:
 - "5"
+before_install:
+  - npm install @horizon/client react
+before_script:
+  - npm run build
 branches:
   only:
   - master
