@@ -57,7 +57,7 @@ export function withQueries({ subscriptions = {}, mutations = {} }) {
           });
       }
       render() {
-        return <ReactComponent {...this.props} {...this.state} {...this._mutations} />;
+        return <ReactComponent {...this.props} {...this.state} {...this._mutations} horizon={this.context.hz} />;
       }
     }
   }
