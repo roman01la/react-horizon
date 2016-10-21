@@ -10,8 +10,8 @@ describe('withQueries', () => {
   it('should create container component with 2 subscriptions', () => {
     @withQueries({
       subscriptions: {
-        items: (hz) => hz('items'),
-        users: (hz) => hz('users'),
+        items: (hz) => hz('items').watch(),
+        users: (hz) => hz('users').watch(),
       }
     })
     class WithSubscriptions extends React.Component {

@@ -91,7 +91,7 @@ class MyComponent extends Component {
 
 `subscriptions` is a map of subscription names to query functions. Data behind query is available as a prop with the same name in React component. Query function receives Horizon `hz` function which should be used to construct a query using Horizon's Collection API and props object which is being passed into container component.
 
-Behind the scenes React Horizon calls `watch` and `subscribe` function on query object which returns RxJS Observable and subscribes to incoming data. Data received by that observable is then passed into React component as props.
+Behind the scenes React Horizon calls `subscribe` function on query object which returns RxJS Observable and subscribes to incoming data. Data received by that observable is then passed into React component as props.
 
 All subscriptions are unsubscribed automatically on `componentWillUnmount`.
 
@@ -116,7 +116,7 @@ const AppContainer = connect(App, {
     items: (hz, { username }) => hz('items')
       .find({ username })
       .below({ id: 10 })
-      .order('title', 'ascending')
+      .order('title', 'ascending').watch()
   }
 });
 
