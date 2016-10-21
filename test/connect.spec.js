@@ -11,8 +11,8 @@ describe('connect', () => {
 
     const TestCompContainer = connect(TestComp, {
       subscriptions: {
-        items: (hz) => hz('items'),
-        users: (hz) => hz('users'),
+        items: (hz) => hz('items').watch(),
+        users: (hz) => hz('users').watch(),
       }
     });
 

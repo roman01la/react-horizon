@@ -43,7 +43,7 @@ export function withQueries({ subscriptions = {}, mutations = {} }) {
         Object.keys(subscriptions)
           .forEach((qname) => {
             const q = subscriptions[qname];
-            const subscription = q(hz, props).watch().subscribe((data) => this.setState({ [qname]: data }));
+            const subscription = q(hz, props).subscribe((data) => this.setState({ [qname]: data }));
             this._subscriptions.push(subscription);
           });
       }
