@@ -1,1 +1,8 @@
-src
+src/
+example/
+test/
+*.png
+.npmignore
+.babelrc
+.travis.yml
+jsconfig.json
